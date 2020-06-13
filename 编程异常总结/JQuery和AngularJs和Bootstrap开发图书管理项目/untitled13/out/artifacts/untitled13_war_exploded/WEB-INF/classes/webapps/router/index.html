@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="author" content="Yeeku.H.Lee(CrazyIt.org)" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title> 多视图应用 </title>
+	<base href="/router/">
+	<style type="text/css">
+	table.gridtable {
+		font-size:14px;
+		width:680px;
+		color:#333333;
+		border-width: 1px;
+		border-color: #666666;
+		border-collapse: collapse;
+	}
+	table.gridtable th {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #666666;
+		background-color: #dedede;
+	}
+	table.gridtable td {
+		border-width: 1px;
+		padding: 8px;
+		border-style: solid;
+		border-color: #666666;
+		background-color: #ffffff;
+	}
+	div>div {
+		font-size:14px;
+	}
+	</style>
+	<script src="angular-1.6.2.min.js" type="text/javascript">
+	</script>
+	<script type="text/javascript" src="angular-route.min.js">
+	</script>
+</head>
+<body ng-app="book-app">
+<div ng-controller="MainController as main">
+    <h3>图书信息</h3><div><a href='add'>添加图书</a></div>
+	<div ng-view></div>
+<hr>
+<!-- 查看相关信息 -->
+<pre>$location.path() = {{main.$location.path()}}</pre>
+<pre>$route.current.templateUrl = {{main.$route.current.templateUrl}}</pre>
+<pre>$route.current.params = {{main.$route.current.params}}</pre>
+<pre>$routeParams = {{main.list.$routeParams}}</pre>
+</div>
+<script type="text/javascript">
+// 创建模块，加载ngRoute模块
+let app = angular.module("book-app", ['ngRoute'])
+	// 配置路由，就是配置URL与模板、控制器之间的映射关系
+	.config(['$routeProvider', '$locationProvider',
+	function ($routeProvider,$locationProvider) {
+		$routeProvider
+		//如果请求路径，使用ListController控制器和对应模板
+		.when('/',{
+			controller:'ListController',
+			templateUrl:'list.html'
+		})
+		.when('/add',{
+			controller:'AddController',
+			templateUrl:'add.html'
+		})
+		.when('/view/:id',{
+			controller:'DetailController',
+			templateUrl:'detail.html'
+		})
+		.when('/edit/:id',{
+			controller:'EditController',
+			templateUrl:'edit.html'
+		})
+		.otrtherwise({redirectTo:'/'});
+		//开启HTML5模式
+		$locationProvider.html5Mode(true)
+	}]);
+// 初始化一些图书信息，模拟从服务端加载的数据
+let books = [{ id: 1, name: '疯狂HTML 5讲义', author: '李刚', price: 79 },
+    { id: 2, name: '疯狂前端开发讲义', author: '李刚', price: 79 },
+    { id: 3, name: '疯狂Android讲义', author: '李刚', price: 108 }
+];
+app.controller("MainController", ['$route','$location', '$routeParams',
+		function ($route, $location, $routeParams){
+		this.$route = $route;
+		this.$location = $location;
+		this.$routeParams = $routeParams;
+	}])
+	// 创建ListController控制器
+	.controller("ListController", ['$scope', function ($scope){
+		$scope.bookList = books;
+	}])
+	// 创建AddController控制器
+	.controller("AddController", ['$scope', '$location',
+		function ($scope, $location){
+		$scope.add = function(){
+			books.push($scope.book);
+			$scope.book.id = books.length;
+			// 返回系统首页
+			$location.path("/");
+		};
+		$scope.cancel = function(){
+			// 返回系统首页
+			$location.path("/");
+		};
+	}])
+	// 创建DetailController控制器
+	.controller("DetailController", ['$scope', '$routeParams',
+	function ($scope, $routeParams){
+		$scope.book = books[$routeParams.id - 1];
+	}])
+// 创建EditController控制器
+.controller("EditController", ['$scope', '$routeParams',
+'$location', function($scope, $routeParams, $location){
+	$scope.book = books[$routeParams.id - 1];
+	// 保留原来的图书，准备取消时使用。
+	$scope.rawBook = angular.copy($scope.book);
+	$scope.save = function(){
+		// 如果有服务端支持，此处应将修改提交到服务端
+		// 返回系统首页
+		$location.path("/");
+	}
+	$scope.cancel = function(){
+		books[$routeParams.id - 1] = $scope.rawBook;
+		// 返回系统首页
+		$location.path("/");
+	}
+}])
+</script>
+</body>
+</html>

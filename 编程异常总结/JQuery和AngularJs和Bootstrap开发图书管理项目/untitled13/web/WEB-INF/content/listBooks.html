@@ -1,0 +1,29 @@
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h4 class="panel-title">图书列表</h4>
+		<a ui-sref="addBook" style="margin-top:-24px" role="button"  
+			class="btn btn-default btn-sm pull-right" aria-label="添加">
+			<i class="glyphicon glyphicon-plus"></i>
+		</a>
+	</div>
+	<table class="table table-hover table-striped">
+		<tr>
+			<th>书名</th>
+			<th>价格</th>
+			<th>作者</th>
+			<th>库存</th>
+			<th>出版社</th>
+			<th>种类</th>
+			<th>操作</th>
+		</tr>
+		<tr ng-repeat="b in books">
+			<td>{{b.name}}</td>
+			<td>{{b.price}}</td>
+			<td>{{b.author}}</td>
+			<td>{{b.amount}}</td>
+			<td>{{b.pubHouse}}</td>
+			<td>{{b.category.name}}</td>
+			<td><a ui-sref="updateBook({ book:(b|json)})">更新</a></td>
+		</tr>		
+  	</table>
+</div>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<!-- 配置Hibernate SessionFactory的信息 -->
+	<session-factory>
+		<!-- 配置数据库方言 -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		<!-- 指定是否显示SQL -->
+		<property name="hibernate.show_sql">false</property>
+		<!-- 指定是否格式化SQL -->
+		<property name="hibernate.format_sql">false</property>
+		<!-- 指定是否自动创建数据表 -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<!-- 列出所有持久化类-->
+		<property name="hibernate.c3p0.max_size">200</property>
+		<property name="hibernate.c3p0.min_size">2</property>
+		<!-- 连接池连接的超时时长 -->
+		<property name="hibernate.c3p0.timeiout">1800</property>
+		<!-- 缓存statements的数量 -->
+		<property name="hibernate.c3p0.max_statements">50</property>
+		
+		<mapping class="org.crazyit.booksys.domain.Category"/>
+		<mapping class="org.crazyit.booksys.domain.Book"/>
+		<mapping class="org.crazyit.booksys.domain.Inventory"/>
+		<mapping class="org.crazyit.booksys.domain.Item"/>
+		<mapping class="org.crazyit.booksys.domain.Sale"/>
+	</session-factory>
+</hibernate-configuration>

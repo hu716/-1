@@ -1,0 +1,8 @@
+CUsers29233   netstat -anofindstr 8080
+  TCP    0.0.0.08080           0.0.0.00              LISTENING       6356
+  TCP    []8080              []0                 LISTENING       6356
+
+CUsers29233taskkill pid 6356 f
+成功 已终止 PID 为 6356 的进程。
+
+CUsers29233

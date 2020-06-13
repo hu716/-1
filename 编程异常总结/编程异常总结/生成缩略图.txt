@@ -1,0 +1,28 @@
+//展开或收缩图片的方法
+function zoom(id,url){
+	document.getElementById('reDefault'+id).onclick();//执行reDefault的单击事件
+	document.getElementById("diary"+id).style.display = "";//显示图片
+	if(flag[id]){//用于展开图片
+		document.getElementById("diary"+id).src="images/diary/"+url+".png";	//设置要显示的图片
+		document.getElementById("diary"+id).style.cursor="url(images/ico02.ico)";//为图片添加自定义鼠标样式
+		document.getElementById("control"+id).style.display="";	//显示控制工具栏
+		document.getElementById("diaryImg"+id).style.width=401;	//设置日记图片的宽度
+		document.getElementById("diaryImg"+id).style.height=436;	//设置日记图片的高度
+		document.getElementById("canvas"+id).style.cursor="url(images/ico02.ico)";	//为画布添加自定义鼠标样式
+		document.getElementById("diary"+id).width=400;	//设置图片的宽度
+		document.getElementById("diary"+id).height=400;//设置图片的高度
+		flag[id]=false;
+	}else{//用于收缩图片
+		document.getElementById("diary"+id).src="images/diary/"+url+"scale.jpg";//设置图片显示为缩略图
+		document.getElementById("control"+id).style.display="none";	//设置控制工具栏不显示
+		document.getElementById("diary"+id).style.cursor="url(images/ico01.ico)";//为图片添加自定义鼠标样式
+		document.getElementById("diaryImg"+id).style.width=60;	//设置日记图片的宽度
+		document.getElementById("diaryImg"+id).style.height=60;	//设置日记图片的高度		
+		document.getElementById("canvas"+id).style.cursor="url(images/ico01.ico)";	//为画布添加自定义鼠标样式
+		document.getElementById("diary"+id).width=60;	//设置图片的宽度
+		document.getElementById("diary"+id).height=60;//设置图片的高度
+		flag[id]=true;
+		document.getElementById("canvas"+id).style.display="none";	//设置面板不显示
+		
+	}
+}

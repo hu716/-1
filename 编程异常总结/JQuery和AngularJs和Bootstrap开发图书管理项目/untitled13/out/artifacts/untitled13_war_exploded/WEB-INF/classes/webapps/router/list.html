@@ -1,0 +1,16 @@
+<table class="gridtable">
+	<tr>
+		<th>ID</th>
+		<th>书名</th>
+		<th>作者</th>
+		<th>价格</th>
+		<th>操作</th>
+	</tr>
+	<tr ng-repeat="b in bookList">
+		<td>{{b.id}}</td>
+		<td><a ng-href="view/{{b.id}}">{{b.name}}</a></td>
+		<td>{{b.author}}</td>
+		<td>{{b.price}}</td>
+		<td><a ng-href="edit/{{b.id}}">修改</a></td>
+	</tr>
+</table>
