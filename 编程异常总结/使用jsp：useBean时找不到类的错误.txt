@@ -1,0 +1,1 @@
+使用<jsp:useBean id=person class=com.Person>  必须在一个包内，否则将报错，如果去掉com,采用默认包，将报错
